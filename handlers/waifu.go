@@ -17,3 +17,6 @@ func GetWaifu(c *fiber.Ctx) error{
 	fmt.Println(json)
 	return c.JSON(json)
 }
+
+func GetWaifuFromDB(c *fiber.Ctx)  error{
+}

@@ -3,6 +3,7 @@ package config
 import (
 	"database/sql"
 	"fmt"
+	_ "github.com/go-sql-driver/mysql"
 	"github.com/ilyakaznacheev/cleanenv"
 )
 
@@ -15,7 +16,7 @@ type MySqlConf struct {
 	Schema string `env:"DB_SCHEMA" env-default:"learning_go"`
 }
 
-func InitDB() (db *sql.DB, err error) {
+func (m *MySQLSvc) InitDB() (db *sql.DB, err error) {
 	mySqlConf := &MySqlConf{}
 	if err = cleanenv.ReadEnv(mySqlConf); err != nil{
 		return nil,err
@@ -30,4 +31,9 @@ func InitDB() (db *sql.DB, err error) {
 	return db,nil
 }
 
+type MySQLSvc struct {}
+
+func NewMySQLSvc() *MySQLSvc{
+	return &MySQLSvc{}
+}
 

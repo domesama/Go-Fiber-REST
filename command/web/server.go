@@ -11,6 +11,7 @@ import (
 
 var app = fiber.New()
 var appConf = config.AppConfig{}
+var DB,err = config.NewMySQLSvc().InitDB()
 
 func init()  {
 	if err := cleanenv.ReadEnv(&appConf); err != nil {
@@ -19,6 +20,10 @@ func init()  {
 }
 
 func Start(){
+	if err != nil{
+		log.Fatal(err)
+	}
+	//app.Use(middlewares.DatabaseMiddleware)
 	app.Use(middlewares.WaifuMiddleware)
 	routes.ExportWaifuRoutes(app)
 	log.Fatal(app.Listen(":8080"))
